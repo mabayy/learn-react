@@ -1,8 +1,8 @@
 import "./ExpenseDate.css";
 
-function ExpenseDate(data) {
-  const day = data.date.toLocaleString("en-US", { day: "2-digit" });
-  const month = data.date.toLocaleString("en-US", { month: "long" });
+const ExpenseDate = (data) => {
+  const day = data.date.toLocaleString("id-ID", { day: "2-digit" });
+  const month = data.date.toLocaleString("id-ID", { month: "long" });
   const year = data.date.getFullYear();
 
   return (
@@ -12,6 +12,6 @@ function ExpenseDate(data) {
       <div className="expense-date__day">{day}</div>
     </div>
   );
-}
+};
 
 export default ExpenseDate;
