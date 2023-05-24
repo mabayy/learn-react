@@ -14,6 +14,11 @@ const ExpenseForm = (data) => {
   //   enteredDate: "",
   // });
 
+  const addCommas = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  const removeNonNumeric = (num) => num.toString().replace(/[^0-9]/g, "");
+
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
 
@@ -31,7 +36,7 @@ const ExpenseForm = (data) => {
   };
 
   const amountChangeHandler = (event) => {
-    setEnteredAmount(event.target.value);
+    setEnteredAmount(addCommas(removeNonNumeric(event.target.value)));
   };
 
   const dateChangeHandler = (event) => {
@@ -43,7 +48,7 @@ const ExpenseForm = (data) => {
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
@@ -69,9 +74,7 @@ const ExpenseForm = (data) => {
         <div className="new-expense__control">
           <label>Amount</label>
           <input
-            type="number"
-            min="0.01"
-            step="0.01"
+            type="text"
             placeholder="Jumlah"
             value={enteredAmount}
             onChange={amountChangeHandler}
@@ -89,6 +92,9 @@ const ExpenseForm = (data) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={data.onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
